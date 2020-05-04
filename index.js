@@ -235,4 +235,6 @@ function registerUser(message, args) {
 	}
 }
 
+client.on('error', console.error);
+
 client.login(process.env.token);
