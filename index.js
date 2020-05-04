@@ -4,16 +4,15 @@
 */
 
 require('dotenv').config();
-const config = require('./config');
+const config = require('./config/config.js');
 const sheetUpdates = require('./sheetFuncs');
 const fs = require('fs');
 
 let users = [];
-const maintenanceMode = false;
 
-fs.exists('users.json', function(exists) {
+fs.exists('./config/users.json', function(exists) {
 	if(exists) {
-		fs.readFile('users.json', function loadUsersCallback(err, data) {
+		fs.readFile('./config/users.json', function loadUsersCallback(err, data) {
 			if(err) {
 				console.log(err);
 			} else {
@@ -228,7 +227,7 @@ function registerUser(message, args) {
 			users.push({name: thisName, id: message.author.id, island: isleName});
 			message.channel.send(thisName+" has been registered to user ID "+message.author.id+" with island name "+isleName);
 			let json = JSON.stringify(users);
-			fs.writeFile('users.json', json, (err) => {
+			fs.writeFile('./config/users.json', json, (err) => {
 				if(err) throw err;
 				console.log('The file has been saved!');
 			});
@@ -240,4 +239,4 @@ function registerUser(message, args) {
 
 client.on('error', console.error);
 
-client.login(process.env.token);
+client.login(process.env.DISCORD_TOKEN);

@@ -1,11 +1,11 @@
 require('dotenv').config();
-const config = require('./config');
+const config = require('./config/config.js');
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = './config/token.json';
 
 function getNewToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
@@ -32,8 +32,8 @@ function getNewToken(oAuth2Client) {
 }
 
 async function getPrices(message, user) {
-	var retLink = "http://turnipprophet.io/index.html?prices=";
-	fs.readFile('credentials.json', async (err, content) => {
+	var retLink = `${config.predictionSitePrefix}`;
+	fs.readFile('./config/credentials.json', async (err, content) => {
 		if(err) return console.log('Error loading client secret file:' , err);
 		var creds = JSON.parse(content);
 		var {client_secret, client_id, redirect_uris} = creds.installed;
@@ -61,7 +61,7 @@ async function getPrices(message, user) {
 				if(sellResponse.values) {
 					var values = sellResponse.values;
 					for(i = 0; i < values.length; i++) {
-							retLink += `.${values[i]}`;
+							retLink += `${config.predictionSiteSeparator}${values[i]}`;
 						}
 					}
 					message.channel.send(retLink);
@@ -77,8 +77,8 @@ module.exports = {
 	
 	getPrices: getPrices,
 	
-	updateSpreadsheet: function(message, range, resource, valueInputOption) {
-		fs.readFile('credentials.json', (err, content) => {
+	updateSpreadsheet: function(message, range, resource, valueInputOption, report = true) {
+		fs.readFile('./config/credentials.json', (err, content) => {
 			if(err) return console.log('Error loading client secret file:' , err);
 			var creds = JSON.parse(content);
 			var {client_secret, client_id, redirect_uris} = creds.installed;
