@@ -50,6 +50,7 @@ client.on('message', message => {
 					   Example: '<register crazy' will register the sender's Discord ID to the 'crazy' sheet. */
 					registerUser(message, args);
 					break;
+				case "link":
 				case "graph":
 					/* No args are used for this, but we pass it for compatibility. 
 					   This function returns a link formatted to the predictions website. */

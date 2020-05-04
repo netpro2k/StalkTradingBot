@@ -5,10 +5,13 @@ This bot is designed to work with the spreadsheet template found here: https://d
 
 # Getting Started
 To start using this bot, you'll need to create a bot through Discord's developer portal.
-Create a file named ".env" and put "token=[yourtoken]" in the file.
+Create a file named ".env" and put "DISCORD_TOKEN=[yourtoken]" in the file.
 
-After your token is set up, you need to follow Step 1 of Google's Node.js quickstart guide found here: https://developers.google.com/sheets/api/quickstart/nodejs. This will give you the credentials file needed to continue.
+After your token is set up, you need to follow Step 1 of Google's Node.js
+quickstart guide found here:
+https://developers.google.com/sheets/api/quickstart/nodejs. This will give you
+the credentials file needed to continue. Place it in `config/credentials.json`
 
-Then, fill out the configuration file as necessary. You will need to duplicate the spreadsheet linked above and set it up for your server. 
+Then, copy `config/config.example.js` to `config/config.js` and fill it out as necessary. You will need to duplicate the spreadsheet linked above and set it up for your server. 
 
 Once the config file is all set, you can run the bot. On your first run, you will get a link that you need to follow so the bot can fully authorize with Google. Running it in the future will not require the same process. 
