@@ -193,7 +193,7 @@ function updateUser(message, args) {
 
 				var valueInputOption = "USER_ENTERED";
 
-				sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption);
+				sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption, false);
 
 				prediction(message, args);
 			} else {
