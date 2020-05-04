@@ -51,7 +51,7 @@ client.on('message', message => {
 					   Example: '<register crazy' will register the sender's Discord ID to the 'crazy' sheet. */
 					registerUser(message, args);
 					break;
-				case "link":
+				case "graph":
 					/* No args are used for this, but we pass it for compatibility. 
 					   This function returns a link formatted to the predictions website. */
 					prediction(message, args);
@@ -100,12 +100,13 @@ function resetWeek(message, args) {
 			let values = [ [ newWeek ], ];
 			var resource = { values, };
 			var valueInputOption = "USER_ENTERED";
-			sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption);
+			sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption, false);
 			range = `${user}!C6:C17`;
 			values = [ [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], [ "", ], ];
 			resource = { values, };
-			sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption);
+			sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption, false);
 		}
+		message.channel.send("The spreadsheet has been reset.");
 	}
 }
 
@@ -193,6 +194,8 @@ function updateUser(message, args) {
 				var valueInputOption = "USER_ENTERED";
 
 				sheetUpdates.updateSpreadsheet(message, range, resource, valueInputOption);
+
+				prediction(message, args);
 			} else {
 				message.channel.send("You can't sell turnips on a Sunday you dweeb.");
 			}
@@ -231,7 +234,7 @@ function registerUser(message, args) {
 			});
 		}
 	} else {
-		message.channel.send("You are not currently on the sheet. Please message Crazy or Walker to request to be added.");
+		message.channel.send("You are not currently on the sheet. Please message an admin to request to be added.");
 	}
 }
 

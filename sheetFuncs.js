@@ -97,9 +97,9 @@ module.exports = {
 				}, (err, result) => {
 					if(err) {
 						console.log(err);
-						message.channel.send("An error occurred. Please contact crazy.");
-					} else {
-						var rangeSplit = range.split('!');
+                        message.channel.send("An error occurred.");
+                    } else if(report) {
+                        var rangeSplit = range.split('!');
 						console.log(`${rangeSplit[0]} updated the spreadsheet at ${rangeSplit[1]} with the value ${resource.values}`);
 						message.channel.send("The spreadsheet has been updated. Thank you!");
 					}
